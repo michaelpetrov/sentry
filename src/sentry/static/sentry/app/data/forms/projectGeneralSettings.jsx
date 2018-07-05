@@ -195,6 +195,10 @@ export const fields = {
   scrapeJavaScript: {
     name: 'scrapeJavaScript',
     type: 'boolean',
+    disabled: ({organization, name}) => !organization[name],
+    disabledReason: ORG_DISABLED_REASON,
+    // `props` are the props given to FormField
+    setValue: (val, props) => props.organization && props.organization[props.name] && val,
     label: t('Enable JavaScript source fetching'),
     help: t('Allow Sentry to scrape missing JavaScript source context when possible'),
   },
