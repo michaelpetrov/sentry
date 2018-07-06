@@ -222,6 +222,7 @@ exports[`ProjectTags renders 1`] = `
                                   <Confirm
                                     cancelText="Cancel"
                                     confirmText="Confirm"
+                                    disableConfirmButton={false}
                                     disabled={false}
                                     message="Are you sure you want to remove this tag?"
                                     onConfirm={[Function]}
@@ -473,6 +474,7 @@ exports[`ProjectTags renders 1`] = `
                                   <Confirm
                                     cancelText="Cancel"
                                     confirmText="Confirm"
+                                    disableConfirmButton={false}
                                     disabled={false}
                                     message="Are you sure you want to remove this tag?"
                                     onConfirm={[Function]}
@@ -724,6 +726,7 @@ exports[`ProjectTags renders 1`] = `
                                   <Confirm
                                     cancelText="Cancel"
                                     confirmText="Confirm"
+                                    disableConfirmButton={false}
                                     disabled={false}
                                     message="Are you sure you want to remove this tag?"
                                     onConfirm={[Function]}
@@ -982,6 +985,7 @@ exports[`ProjectTags renders 1`] = `
                                       <Confirm
                                         cancelText="Cancel"
                                         confirmText="Confirm"
+                                        disableConfirmButton={false}
                                         disabled={true}
                                         message="Are you sure you want to remove this tag?"
                                         onConfirm={[Function]}
