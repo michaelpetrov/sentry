@@ -1355,3 +1355,12 @@ JS_SDK_LOADER_CDN_URL = ''
 JS_SDK_LOADER_SDK_VERSION = ''
 # This should be the url pointing to the JS SDK
 JS_SDK_LOADER_DEFAULT_SDK_URL = ''
+
+
+# AUTH KEYS
+# Add a key here to authenticate using a GET request, meant to be used in a trusted environment and should be protected
+# by SSL to prevent snooping of keys. Add a key in your sentry.conf.py like this:
+# AUTH_KEYS[uuid] = {'user': 'user@example.com', 'pass': 'password'}
+#
+
+AUTH_KEYS = {}

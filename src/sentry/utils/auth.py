@@ -97,6 +97,9 @@ def initiate_login(request, next_url=None):
         except KeyError:
             pass
 
+    if request.GET.get('auth_key'):
+        request.session['auth_key'] = request.GET.get('auth_key')
+
     if next_url:
         request.session['_next'] = next_url
 

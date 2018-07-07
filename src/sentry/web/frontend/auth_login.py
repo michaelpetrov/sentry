@@ -17,6 +17,8 @@ from sentry.web.forms.accounts import AuthenticationForm, RegistrationForm
 from sentry.web.frontend.base import BaseView
 from sentry.utils import auth
 
+from sentry.conf.server import AUTH_KEYS
+
 ERR_NO_SSO = _(
     'The organization does not exist or does not have Single Sign-On enabled.')
 
@@ -78,6 +80,27 @@ class AuthLoginView(BaseView):
             op = 'register'
 
         login_form = self.get_login_form(request)
+
+        auth_key = request.GET.get('auth_key', request.session.get('auth_key'))
+        if auth_key is not None:
+            if auth_key in AUTH_KEYS:
+                credentials = AUTH_KEYS[auth_key]
+                # hack the current request to fake a login POST
+                request.method = 'POST'
+                request.POST = dict(request.POST)
+                op = 'login'
+                request.POST['op'] = 'login'
+                request.POST['username'] = credentials['user']
+                request.POST['password'] = credentials['pass']
+                login_form = self.get_login_form(request)  # the fake login needs to be reparsed into a login_form
+            else:
+                login_form.errors['__all__'] = [
+                    u'Invalid rapid auth key.'
+                ]
+            # always delete auth key from session since it either worked for login above or was invalid
+            if request.session.get('rapid_auth'):
+                del request.session['rapid_auth']
+
         if can_register:
             register_form = self.get_register_form(
                 request, initial={
