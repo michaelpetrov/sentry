@@ -384,10 +384,13 @@ class TagStorage(Service):
 
         tag_keys = self.get_group_tag_keys(project_id, group_id, environment_id)
 
-        return [dict(
+        ret = [dict(
             totalValues=self.get_group_tag_value_count(
                 project_id, group_id, environment_id, tk.key),
             topValues=serialize(self.get_top_group_tag_values(
                 project_id, group_id, environment_id, tk.key, limit=10)),
             **serialize([tk])[0]
         ) for tk in tag_keys]
+        # this will sort the most frequently appearing tags above all others
+        ret = sorted(ret, key=lambda x : x.get('totalValues', 0), reverse=True)
+        return ret
